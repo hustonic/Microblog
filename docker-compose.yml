@@ -1,0 +1,88 @@
+version: "3.7"
+
+services:
+  nginx:
+    container_name: nginx
+    image: nginx
+    networks:
+      mynet:
+        ipv4_address: "172.18.0.2"
+    ports:
+      - "80:80"
+    volumes:
+      - "nginx_conf:/etc/nginx"
+      - "nginx_data:/usr/share/nginx/html"
+
+  redis:
+    container_name: redis
+    image: redis
+    networks:
+      mynet:
+        ipv4_address: "172.18.0.3"
+    ports:
+      - "6379:6379"
+    volumes:
+      - "redis_conf:/usr/local/etc/redis"
+      - "redis_data:/data"
+    command: "redis-server /usr/local/etc/redis/redis.conf --requirepass root"
+
+  mysql:
+    container_name: mysql
+    image: mysql
+    networks:
+      mynet:
+        ipv4_address: "172.18.0.4"
+    ports:
+      - "3306:3306"
+    volumes:
+      - "mysql_conf:/etc/mysql"
+      - "mysql_data:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  nginx-file:
+    container_name: "nginx-file"
+    image: nginx
+    networks:
+      mynet:
+        ipv4_address: "172.18.0.7"
+    ports:
+      - "10000:80"
+    volumes:
+      - "nginx-file-conf:/etc/nginx"
+      - "nginx-file-data:/usr/share/nginx/html"
+
+  ftp:
+    container_name: ftp
+    image: "fauria/vsftpd"
+    networks:
+      mynet:
+        ipv4_address: "172.18.0.8"
+    ports:
+      - "20-21:20-21"
+      - "21100-21110:21100-21110"
+    volumes:
+      - "nginx-file-data:/home/vsftpd/root"
+    environment:
+      FTP_USER: root
+      FTP_PASS: root
+      PASV_ADDRESS: "114.116.240.155"
+      PASV_MIN_PORT: 21100
+      PASV_MAX_PORT: 21110
+
+networks:
+  mynet:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.18.0.0/16"
+
+volumes:
+  nginx_conf:
+  nginx_data:
+  redis_conf:
+  redis_data:
+  mysql_conf:
+  mysql_data:
+  nginx-file-conf:
+  nginx-file-data:

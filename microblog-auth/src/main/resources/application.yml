@@ -1,0 +1,50 @@
+server:
+  port: 10100
+spring:
+  application:
+    name: @pom.artifactId@
+  datasource: #默认配置了Hikari连接池，自动根据URL选择Driver
+    url: jdbc:mysql://172.18.0.4:3306/microblog_user
+    username: root
+    password: root
+  redis:
+    host: 172.18.0.3
+    database: 0
+    password: root
+  mail:   #邮箱配置
+    host: smtp.qq.com   #发信服务器
+    port: 587   #SSL加密端口，465或587
+    username: huxiantao-cn@foxmail.com
+    password: ewfzkexrsmdfhdje    #授权码
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+eureka:
+  client:
+    serviceURL:
+      defaultZone: http://root:root@172.18.0.5:8761/eureka/ #服务注册中心集群
+  instance: #以下两个属性在开发环境下配置，不要在生产环境下配置
+    lease-renewal-interval-in-seconds: 1
+    lease-expiration-duration-in-seconds: 3
+    prefer-ip-address: true
+    ip-address: 114.116.240.155
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true    #开启 数据库字段-驼峰式命名 映射
+    lazy-loading-enabled: true    #开启懒加载
+
+keypair:    #自定义的KeyPair属性
+  keystore-path: mykeystore.keystore
+  keystore-password: 123456
+  key-alias: mykey
+  key-password: 123456abcdef
+aliyun:    #自定义阿里云短信服务配置
+  sms:
+    accessKeyId: LTAI4FmdTza4gX9Kyma4gz65
+    accessSecret: BTYWzeHvgRLlsPiXvhvTHb41bhAsNZ
+    signName: Microblog
+    templateCode: SMS_180952254

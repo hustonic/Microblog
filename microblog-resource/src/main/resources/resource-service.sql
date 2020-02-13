@@ -1,0 +1,9 @@
+CREATE TABLE resource (
+	res_id BIGINT AUTO_INCREMENT COMMENT '资源ID',
+	res_url VARCHAR(255) COMMENT '资源URL',
+	res_type TINYINT COMMENT '资源类型',
+	res_usage TINYINT COMMENT '资源用途',
+	res_cre_time DATETIME COMMENT '资源创建时间',
+	user_id BIGINT COMMENT '资源创建者',
+	PRIMARY KEY (res_id)
+)ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8 COMMENT '资源';

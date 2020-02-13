@@ -1,0 +1,19 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: @pom.artifactId@
+  security:
+    user:
+      name: root
+      password: root
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 1 #续约时间间隔，开发环境下设置
+    lease-expiration-duration-in-seconds: 3 #失效时间，开发环境下设置
+  server:
+    enable-self-preservation: false #关闭自保护机制，开发环境下设置
+    eviction-interval-timer-in-ms: 2000 #剔除失效服务的时间间隔，开发环境下设置
+  client:
+    serviceURL:
+      defaultZone: http://root:root@localhost:8761/eureka/ #服务注册中心集群

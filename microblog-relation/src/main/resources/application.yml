@@ -1,0 +1,27 @@
+server:
+  port: 10010
+spring:
+  application:
+    name: @pom.artifactId@
+  datasource:
+    url: jdbc:mysql://114.116.240.155:3306/microblog_relation
+    username: root
+    password: root
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://114.116.240.155:8080/microblog-auth/.well-known/jwks.json
+eureka:
+  client:
+    serviceURL:
+      defaultZone: http://root:root@114.116.240.155:8761/eureka/ #服务注册中心集群
+  instance: #以下两个属性在开发环境下配置，不要在生产环境下配置
+    lease-renewal-interval-in-seconds: 1
+    lease-expiration-duration-in-seconds: 3
+    prefer-ip-address: true
+    ip-address: 110.43.46.19
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true    #开启 数据库字段-驼峰式命名 映射
+    lazy-loading-enabled: true    #开启懒加载
