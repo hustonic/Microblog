@@ -16,4 +16,5 @@ public interface RedisTimelineManager {
 
     boolean delete(int timelineType, long userId, String feed);
 
+    String getKey(int timelineType, long userId);
 }

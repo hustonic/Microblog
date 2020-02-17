@@ -2,6 +2,8 @@ package com.huston.microblog.mblog.manager.impl;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.huston.microblog.common.model.exception.CustomException;
+import com.huston.microblog.common.model.exception.InternalServerException;
 import com.huston.microblog.common.model.vo.Result;
 import com.huston.microblog.mblog.manager.MicroblogTimelineManager;
 import com.huston.microblog.mblog.manager.RedisTimelineManager;
@@ -37,21 +39,36 @@ public class MicroblogTimelineManagerImpl implements MicroblogTimelineManager {
      * 这里粉丝数可能会很多，因此异步执行提高响应速度。
      */
     @Override
-    @Async
-    public void pushAsync(long userId, long mblogId, long timestamp) {
+//    @Async
+    public void pushAsync(long userId, long mblogId, long timestamp) throws CustomException {
         //TODO 通过消息队列确保操作成功
         Result<List<Long>> result = relationService.listFansId(userId);
         if(!result.isSuccess()){
-            return;
+            throw new InternalServerException("获取粉丝列表失败");
         }
-        List<Long> fansIds = objectMapper.convertValue(result.getData(), new TypeReference<List<Long>>() {});
+//        List<Long> fansIds = objectMapper.convertValue(result.getData(), new TypeReference<List<Long>>() {});
+        List<Long> fansIds = result.getData();
         String feed=String.valueOf(mblogId);
+
         //推送到个人主页Timeline
-        redisTimelineManager.add(TimelineTypeEnum.MICROBLOG_ME.getCode(), userId,
-                feed, timestamp, Long.MAX_VALUE);
+        if(!redisTimelineManager.add(TimelineTypeEnum.MICROBLOG_ME.getCode(), userId,
+                feed, timestamp, Long.MAX_VALUE)){
+            throw new InternalServerException("推送微博到个人主页Timeline失败");
+        }
+
+        //推送到所有人微博的Timeline
+        if(!redisTimelineManager.add(TimelineTypeEnum.MICROBLOG_ALL.getCode(), BaseConst.USER_ID_MATCHING_ALL,
+                feed, timestamp, BaseConst.MAX_REDIS_TIMELINE_SIZE)){
+            throw new InternalServerException("推送微博到所有人微博的Timeline失败");
+        }
+
         //推送到所有粉丝的Timeline
-        fansIds.forEach(fansId->redisTimelineManager.add(TimelineTypeEnum.MICROBLOG_FOLLOW.getCode(), fansId,
-                feed, timestamp, BaseConst.MAX_REDIS_TIMELINE_SIZE));
+        for (Long fansId : fansIds) {
+            if(!redisTimelineManager.add(TimelineTypeEnum.MICROBLOG_FOLLOW.getCode(), fansId,
+                    feed, timestamp, BaseConst.MAX_REDIS_TIMELINE_SIZE)){
+                throw new InternalServerException("推送微博到粉丝的关注列表Timeline失败");
+            }
+        }
     }
 
 

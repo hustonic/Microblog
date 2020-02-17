@@ -3,9 +3,11 @@ package com.huston.microblog.auth.web;
 import com.huston.microblog.auth.aspect.validation.annotation.Email;
 import com.huston.microblog.auth.aspect.validation.annotation.Phone;
 import com.huston.microblog.auth.manager.ValidationCodeManager;
+import com.huston.microblog.auth.model.domain.Role;
 import com.huston.microblog.auth.model.dto.*;
 import com.huston.microblog.auth.model.enums.ValidationTypeEnum;
 import com.huston.microblog.auth.model.vo.*;
+import com.huston.microblog.auth.service.RoleService;
 import com.huston.microblog.auth.service.UserService;
 import com.huston.microblog.common.model.dto.UserDTO;
 import com.huston.microblog.common.model.exception.ControllerException;
@@ -17,6 +19,9 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.huston.microblog.common.model.constant.CommonConstant.*;
 
 /**
@@ -27,10 +32,12 @@ import static com.huston.microblog.common.model.constant.CommonConstant.*;
 public class UserController{
 
     private UserService userService;
+    private RoleService roleService;
     private ValidationCodeManager validationCodeManager;
 
-    public UserController(UserService userService, ValidationCodeManager validationCodeManager) {
+    public UserController(UserService userService, RoleService roleService, ValidationCodeManager validationCodeManager) {
         this.userService = userService;
+        this.roleService = roleService;
         this.validationCodeManager = validationCodeManager;
     }
 
@@ -105,6 +112,12 @@ public class UserController{
             userVO.setUserNameSetTime(null);
             userVO.setUserNameUpdateTimes(null);
         }
+        List<Role> roles = roleService.listRole(userVO.getUserId());
+        List<String> roleNames=new ArrayList<>();
+        for (Role role : roles) {
+            roleNames.add(role.getRoleName());
+        }
+        userVO.setRoles(roleNames);
         return Result.success(userVO);
     }
 

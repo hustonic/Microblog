@@ -18,6 +18,8 @@ public interface MicroblogService {
 
     List<MicroblogDTO> listFollowMicroblog(Long userId, long offset, long limit);
 
+    List<MicroblogDTO> listAllMicroblog(long offset, long limit);
+
     MicroblogDTO getMicroblog(Long mblogId);
 
     void updateMicroblog(UpdateMicroblogDTO updateMicroblogDTO) throws CustomException;

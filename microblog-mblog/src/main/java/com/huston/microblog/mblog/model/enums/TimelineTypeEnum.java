@@ -6,7 +6,8 @@ package com.huston.microblog.mblog.model.enums;
 public enum TimelineTypeEnum {
 
     MICROBLOG_FOLLOW(0, "关注的人的微博列表"),
-    MICROBLOG_ME(1, "自己发布的微博列表")
+    MICROBLOG_ME(1, "自己发布的微博列表"),
+    MICROBLOG_ALL(2, "所有人发布的微博")
     ;
 
     private int code;

@@ -20,6 +20,7 @@
         <module>microblog-registry</module>
         <module>microblog-relation</module>
         <module>microblog-resource</module>
+        <module>microblog-verification</module>
     </modules>
 
 </project>

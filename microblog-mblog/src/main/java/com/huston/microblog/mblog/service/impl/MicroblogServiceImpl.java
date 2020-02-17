@@ -148,6 +148,11 @@ public class MicroblogServiceImpl implements MicroblogService {
         return listMicroblog(TimelineTypeEnum.MICROBLOG_FOLLOW.getCode(), userId, offset, limit);
     }
 
+    @Override
+    public List<MicroblogDTO> listAllMicroblog(long offset, long limit){
+        return listMicroblog(TimelineTypeEnum.MICROBLOG_ALL.getCode(), BaseConst.USER_ID_MATCHING_ALL, offset, limit);
+    }
+
     private List<MicroblogDTO> listMicroblog(int timelineType, Long userId, long offset, long limit) {
         List<MicroblogDTO> microblogDTOs = new ArrayList<>();
 

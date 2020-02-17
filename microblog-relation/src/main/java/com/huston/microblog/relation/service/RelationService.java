@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface RelationService {
 
-    void insertRelation(Long userIdSub, Long userIdPub) throws CustomException;
+    RelationDTO insertRelation(Long userIdSub, Long userIdPub) throws CustomException;
 
     void deleteRelation(Long userId, Long relaId) throws CustomException;
 

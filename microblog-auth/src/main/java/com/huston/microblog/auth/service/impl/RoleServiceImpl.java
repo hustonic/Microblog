@@ -29,7 +29,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<Role> listRoles(Long userId) {
+    public List<Role> listRole(Long userId) {
         //先根据userId查UserRole关系，然后根据结果的roleId查Roles
         List<UserRole> userRoles = userRoleService.listUserRoles(userId);
 

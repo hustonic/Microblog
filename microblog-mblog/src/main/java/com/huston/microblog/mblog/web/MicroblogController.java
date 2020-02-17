@@ -73,6 +73,9 @@ public class MicroblogController implements FeignMicroblogService {
                 }
                 microblogDTOS = microblogService.listFollowMicroblog(userId, offset, limit);
                 break;
+            case MICROBLOG_ALL:
+                microblogDTOS = microblogService.listAllMicroblog(offset, limit);
+                break;
             default:
                 throw new BadRequestException("timelineType不合法");
         }

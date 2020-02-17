@@ -7,7 +7,6 @@ import com.huston.microblog.auth.model.domain.Role;
 import com.huston.microblog.auth.model.domain.User;
 import com.huston.microblog.auth.model.dto.*;
 import com.huston.microblog.auth.model.enums.ValidationTypeEnum;
-import com.huston.microblog.auth.model.vo.UpdateUserVO;
 import com.huston.microblog.auth.service.ResourceService;
 import com.huston.microblog.auth.service.RoleService;
 import com.huston.microblog.auth.service.UserRoleService;
@@ -211,7 +210,7 @@ public class UserServiceImpl implements UserService {
             update.setUserNameUpdateTimes(userNameUpdateTimes);
         }
         //根据角色判断可更名次数
-        List<Role> roles=roleService.listRoles(userId);
+        List<Role> roles=roleService.listRole(userId);
         int max=0;  //计算当前的最大可更名次数
         for(Role role:roles){
             if (UserServiceConstant.USER_ROLE_NAME.equalsIgnoreCase(role.getRoleName())) {

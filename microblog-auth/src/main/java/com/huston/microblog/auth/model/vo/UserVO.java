@@ -1,6 +1,9 @@
 package com.huston.microblog.auth.model.vo;
 
+import com.huston.microblog.auth.model.domain.Role;
+
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author huxiantao-cn@foxmail.com
@@ -30,6 +33,8 @@ public class UserVO {
     private String resUrl;
 
     private Date userCreTime;
+
+    private List<String> roles;
 
     public Long getUserId() {
         return userId;
@@ -125,5 +130,13 @@ public class UserVO {
 
     public void setResId(Long resId) {
         this.resId = resId;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 }

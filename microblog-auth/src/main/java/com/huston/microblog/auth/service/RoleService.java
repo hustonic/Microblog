@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface RoleService {
 
-    List<Role> listRoles(Long userId);
+    List<Role> listRole(Long userId);
 
     Role getRole(String roleName);
 }

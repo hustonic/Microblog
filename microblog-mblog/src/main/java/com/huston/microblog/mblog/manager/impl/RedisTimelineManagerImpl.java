@@ -70,7 +70,8 @@ public class RedisTimelineManagerImpl implements RedisTimelineManager {
         return removeCount!=null && removeCount==1;
     }
 
-    private String getKey(int timelineType, long userId){
+    @Override
+    public String getKey(int timelineType, long userId){
         return BaseConst.REDIS_TIMELINE_PREFIX + BaseConst.REDIS_TIMELINE_TYPE_PREFIX + timelineType + ":" +
                 BaseConst.REDIS_TIMELINE_USER_ID_PREFIX + userId;
     }

@@ -12,4 +12,6 @@ public class BaseConst {
     public static final String REDIS_TIMELINE_USER_ID_PREFIX = "userId:";
 
     public static final int MAX_REDIS_TIMELINE_SIZE = 10_000;
+
+    public static final long USER_ID_MATCHING_ALL = -1;   //用于获取 所有人发送的微博 的Timeline 时的用户ID
 }

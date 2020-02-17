@@ -41,7 +41,7 @@ public class RelationServiceImpl implements RelationService {
      * @param userIdPub 被关注者
      */
     @Override
-    public void insertRelation(Long userIdSub, Long userIdPub) throws ServiceException {
+    public RelationDTO insertRelation(Long userIdSub, Long userIdPub) throws ServiceException {
         Relation relation=new Relation();
         relation.setUserIdSub(userIdSub);
         relation.setUserIdPub(userIdPub);
@@ -53,6 +53,9 @@ public class RelationServiceImpl implements RelationService {
         } catch(DuplicateKeyException e){
             throw new ServiceException(ServiceExceptionErrorCodeEnum.INSERT_RELATION_FAILED.getErrorCode(), "不能重复关注");
         }
+        RelationDTO relationDTO = new RelationDTO();
+        BeanUtils.copyProperties(relation, relationDTO);
+        return relationDTO;
     }
 
     /**

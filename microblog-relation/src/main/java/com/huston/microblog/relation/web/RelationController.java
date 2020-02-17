@@ -36,11 +36,14 @@ public class RelationController implements FeignRelationService {
     }
 
     @PostMapping("/relations")
-    public Result insertRelation(@AuthenticationPrincipal Jwt jwt,
+    public Result<RelationDTO> insertRelation(@AuthenticationPrincipal Jwt jwt,
                                  @RequestBody Long userIdPub){
         Long userId=Long.parseLong(jwt.getClaim(JWT_CLAIMS_USER_ID_NAME));
-        relationService.insertRelation(userId, userIdPub);
-        return Result.success();
+        if(userId.equals(userIdPub)){
+            throw new BadRequestException("不能自己关注自己");
+        }
+        RelationDTO relationDTO=relationService.insertRelation(userId, userIdPub);
+        return Result.success(relationDTO);
     }
 
     @GetMapping("/relations")
@@ -78,7 +81,7 @@ public class RelationController implements FeignRelationService {
     @PatchMapping("/relations/{relaId}")
     public Result updateRelation(@AuthenticationPrincipal Jwt jwt,
                                  @PathVariable("relaId") Long relaId,
-                                 @RequestParam("relaRemark") @Size(min = 1, max = 30, message = "备注名为1-30个字符") String relaRemark){
+                                 @RequestParam("relaRemark") @Size(min = 0, max = 30, message = "备注名为0-30个字符") String relaRemark){
         Long userId=Long.parseLong(jwt.getClaim(JWT_CLAIMS_USER_ID_NAME));
         relationService.updateRelation(userId, relaId, relaRemark);
         return Result.success();

@@ -55,7 +55,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             User user = users.get(0);
             //获取用户的角色
             List<GrantedAuthority> authorities = new ArrayList<>();
-            List<Role> roles = roleService.listRoles(user.getUserId());
+            List<Role> roles = roleService.listRole(user.getUserId());
             roles.forEach(role-> authorities.add(new SimpleGrantedAuthority("ROLE_"+role.getRoleName())));
             return new UserDetailsDTO(user.getUserId(), user.getUserPassword(), user.getUserAvailTime(), authorities);
         }else if(users.size()==0){
