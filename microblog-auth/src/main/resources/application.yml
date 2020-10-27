@@ -15,7 +15,7 @@ spring:
     host: smtp.qq.com   #发信服务器
     port: 587   #SSL加密端口，465或587
     username: huxiantao-cn@foxmail.com
-    password: ewfzkexrsmdfhdje    #授权码
+    password: ******    #授权码
     properties:
       mail:
         smtp:
@@ -39,12 +39,12 @@ mybatis:
 
 keypair:    #自定义的KeyPair属性
   keystore-path: mykeystore.keystore
-  keystore-password: 123456
+  keystore-password: ******
   key-alias: mykey
-  key-password: 123456abcdef
+  key-password: ****
 aliyun:    #自定义阿里云短信服务配置
   sms:
     accessKeyId: LTAI4FmdTza4gX9Kyma4gz65
-    accessSecret: BTYWzeHvgRLlsPiXvhvTHb41bhAsNZ
+    accessSecret: *****
     signName: Microblog
     templateCode: SMS_180952254
