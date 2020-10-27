@@ -1,6 +1,7 @@
 package com.huston.microblog.mblog.model.vo;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -8,6 +9,7 @@ import java.util.List;
  */
 public class InsertMicroblogVO {
     @NotBlank
+    @Size(max = 5000, message = "微博文本不得超过5000个字符")
     private String mblogText;
     private Byte mblogType;
     private Long mblogIdForward;

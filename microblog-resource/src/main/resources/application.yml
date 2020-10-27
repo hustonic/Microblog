@@ -1,5 +1,3 @@
-server:
-  port: 10120
 spring:
   application:
     name: @pom.artifactId@
@@ -11,7 +9,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://172.18.0.6:10100/.well-known/jwks.json
+          jwk-set-uri: http://172.18.0.6:8080/.well-known/jwks.json
   servlet:
     multipart:
       max-file-size: 500MB
@@ -24,7 +22,6 @@ eureka:
     lease-renewal-interval-in-seconds: 1
     lease-expiration-duration-in-seconds: 3
     prefer-ip-address: true
-    ip-address: 114.116.240.155
 mybatis:
   configuration:
     map-underscore-to-camel-case: true    #开启 数据库字段-驼峰式命名 映射
@@ -35,7 +32,7 @@ storage:    #自定义属性，用于配置文件存储的属性
     location: D:\software\Nginx\nginx-1.17.2\html\microblog
     host: http://localhost/
   ftp:
-    url-prefix: http://114.116.240.155:10000/
-    host: 114.116.240.155
+    url-prefix: http://192.168.1.100:10000/
+    host: 192.168.1.100
     username: root
     password: root

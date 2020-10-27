@@ -66,7 +66,7 @@ services:
     environment:
       FTP_USER: root
       FTP_PASS: root
-      PASV_ADDRESS: "114.116.240.155"
+      PASV_ADDRESS: "192.168.1.100"
       PASV_MIN_PORT: 21100
       PASV_MAX_PORT: 21110
 

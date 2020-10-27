@@ -1,5 +1,3 @@
-server:
-  port: 10100
 spring:
   application:
     name: @pom.artifactId@
@@ -15,7 +13,7 @@ spring:
     host: smtp.qq.com   #发信服务器
     port: 587   #SSL加密端口，465或587
     username: huxiantao-cn@foxmail.com
-    password: ewfzkexrsmdfhdje    #授权码
+    password: 123456    #授权码
     properties:
       mail:
         smtp:
@@ -31,7 +29,6 @@ eureka:
     lease-renewal-interval-in-seconds: 1
     lease-expiration-duration-in-seconds: 3
     prefer-ip-address: true
-    ip-address: 114.116.240.155
 mybatis:
   configuration:
     map-underscore-to-camel-case: true    #开启 数据库字段-驼峰式命名 映射
@@ -39,12 +36,12 @@ mybatis:
 
 keypair:    #自定义的KeyPair属性
   keystore-path: mykeystore.keystore
-  keystore-password: 123456
+  keystore-password: zxvxcb
   key-alias: mykey
-  key-password: 123456abcdef
+  key-password: asdfgh
 aliyun:    #自定义阿里云短信服务配置
   sms:
     accessKeyId: LTAI4FmdTza4gX9Kyma4gz65
-    accessSecret: BTYWzeHvgRLlsPiXvhvTHb41bhAsNZ
+    accessSecret: 123456
     signName: Microblog
     templateCode: SMS_180952254
